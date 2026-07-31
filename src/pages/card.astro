@@ -1,0 +1,149 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+---
+<BaseLayout title="スポット記念カード" description="写真を撮影または端末から選び、福岡市役所西側ふれあい広場のオリジナル記念カードをブラウザ内で作成・保存できます。" image="/images/plaza/night-aerial.webp">
+  <PageHero
+    eyebrow="MEMORY CARD MAKER"
+    title="今日の天神を、あなたの一枚に。"
+    description="撮影・自撮り・端末内の写真から、3つのサイズと広場をイメージしたスタイルで記念カードを作れます。"
+  />
+
+  <section class="pb-24 pt-2">
+    <div class="container-site">
+      <div class="mb-8 flex items-start gap-4 rounded-2xl border border-moss/20 bg-moss/[0.08] p-5">
+        <span class="grid size-10 shrink-0 place-items-center rounded-full bg-moss text-white">
+          <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
+        </span>
+        <div>
+          <p class="font-bold text-moss">写真はお使いの端末にのみ保存されます</p>
+          <p class="mt-1 text-sm leading-6 text-ink/60">写真・入力文字・完成画像はブラウザ内で処理され、サーバーへアップロードされません。ページを閉じると編集状態は失われます。</p>
+        </div>
+      </div>
+
+      <div class="grid gap-7 xl:grid-cols-[420px_minmax(0,1fr)]">
+        <aside class="space-y-5 xl:sticky xl:top-24 xl:self-start">
+          <section class="card-surface p-6">
+            <div class="flex items-center gap-3">
+              <span class="grid size-8 place-items-center rounded-full bg-ink text-xs font-black text-white">1</span>
+              <h2 class="text-lg font-bold">写真を選ぶ</h2>
+            </div>
+            <div class="mt-5 grid grid-cols-3 gap-2">
+              <label for="camera-input" class="cursor-pointer rounded-xl bg-ink px-3 py-3 text-center text-xs font-bold text-white transition hover:-translate-y-0.5">
+                <svg viewBox="0 0 24 24" class="mx-auto mb-2 size-5" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14.5 4 16 7h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h3l1.5-3h5Z"/><circle cx="12" cy="13" r="3"/></svg>
+                撮影
+              </label>
+              <label for="selfie-input" class="cursor-pointer rounded-xl bg-festival px-3 py-3 text-center text-xs font-bold text-white transition hover:-translate-y-0.5">
+                <svg viewBox="0 0 24 24" class="mx-auto mb-2 size-5" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="3"/><path d="M5 20c0-4 3-7 7-7s7 3 7 7"/></svg>
+                自撮り
+              </label>
+              <label for="album-input" class="cursor-pointer rounded-xl bg-moss px-3 py-3 text-center text-xs font-bold text-white transition hover:-translate-y-0.5">
+                <svg viewBox="0 0 24 24" class="mx-auto mb-2 size-5" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="m21 15-5-5L5 19"/></svg>
+                写真選択
+              </label>
+            </div>
+            <input id="camera-input" class="hidden" type="file" accept="image/*" capture="environment" />
+            <input id="selfie-input" class="hidden" type="file" accept="image/*" capture="user" />
+            <input id="album-input" class="hidden" type="file" accept="image/*" />
+            <p id="file-status" class="mt-3 text-xs leading-5 text-ink/50" aria-live="polite">サンプル写真を表示しています。お好きな写真に変更できます。</p>
+          </section>
+
+          <section class="card-surface p-6">
+            <div class="flex items-center gap-3">
+              <span class="grid size-8 place-items-center rounded-full bg-ink text-xs font-black text-white">2</span>
+              <h2 class="text-lg font-bold">サイズと構図</h2>
+            </div>
+            <fieldset class="mt-5">
+              <legend class="sr-only">カードサイズ</legend>
+              <div class="grid grid-cols-3 gap-2">
+                <label class="cursor-pointer">
+                  <input type="radio" name="card-size" value="square" class="peer sr-only" checked />
+                  <span class="flex h-full flex-col items-center rounded-xl border border-black/10 bg-white px-3 py-3 text-xs font-bold peer-checked:border-festival peer-checked:bg-festival/[0.08]">
+                    <span class="mb-2 block size-7 border-2 border-current"></span>1:1
+                  </span>
+                </label>
+                <label class="cursor-pointer">
+                  <input type="radio" name="card-size" value="postcard" class="peer sr-only" />
+                  <span class="flex h-full flex-col items-center rounded-xl border border-black/10 bg-white px-3 py-3 text-center text-xs font-bold peer-checked:border-festival peer-checked:bg-festival/[0.08]">
+                    <span class="mb-2 block h-8 w-5 border-2 border-current"></span>ポストカード縦
+                  </span>
+                </label>
+                <label class="cursor-pointer">
+                  <input type="radio" name="card-size" value="story" class="peer sr-only" />
+                  <span class="flex h-full flex-col items-center rounded-xl border border-black/10 bg-white px-3 py-3 text-xs font-bold peer-checked:border-festival peer-checked:bg-festival/[0.08]">
+                    <span class="mb-2 block h-8 w-[18px] border-2 border-current"></span>9:16
+                  </span>
+                </label>
+              </div>
+            </fieldset>
+            <div class="mt-5 space-y-4">
+              <label class="block text-xs font-bold">拡大 <span id="zoom-value" class="float-right text-moss">100%</span><input id="zoom-control" type="range" min="100" max="250" value="100" class="mt-2 w-full accent-festival" /></label>
+              <label class="block text-xs font-bold">左右位置<input id="x-control" type="range" min="-100" max="100" value="0" class="mt-2 w-full accent-festival" /></label>
+              <label class="block text-xs font-bold">上下位置<input id="y-control" type="range" min="-100" max="100" value="0" class="mt-2 w-full accent-festival" /></label>
+            </div>
+          </section>
+
+          <section class="card-surface p-6">
+            <div class="flex items-center gap-3">
+              <span class="grid size-8 place-items-center rounded-full bg-ink text-xs font-black text-white">3</span>
+              <h2 class="text-lg font-bold">スタイルと文字</h2>
+            </div>
+            <fieldset class="mt-5">
+              <legend class="sr-only">カードスタイル</legend>
+              <div class="grid grid-cols-3 gap-2">
+                <label class="cursor-pointer">
+                  <input type="radio" name="card-style" value="green" class="peer sr-only" checked />
+                  <span class="block rounded-xl border border-black/10 bg-white p-2 peer-checked:border-moss peer-checked:ring-2 peer-checked:ring-moss/20">
+                    <span class="block h-11 rounded-lg bg-linear-to-br from-[#f3efe2] to-[#42654b]"></span>
+                    <span class="mt-2 block text-center text-xs font-bold">都市の緑</span>
+                  </span>
+                </label>
+                <label class="cursor-pointer">
+                  <input type="radio" name="card-style" value="festival" class="peer sr-only" />
+                  <span class="block rounded-xl border border-black/10 bg-white p-2 peer-checked:border-festival peer-checked:ring-2 peer-checked:ring-festival/20">
+                    <span class="block h-11 rounded-lg bg-linear-to-br from-[#e5a73a] to-[#d94a32]"></span>
+                    <span class="mt-2 block text-center text-xs font-bold">祭りの灯</span>
+                  </span>
+                </label>
+                <label class="cursor-pointer">
+                  <input type="radio" name="card-style" value="night" class="peer sr-only" />
+                  <span class="block rounded-xl border border-black/10 bg-white p-2 peer-checked:border-night peer-checked:ring-2 peer-checked:ring-night/20">
+                    <span class="block h-11 rounded-lg bg-linear-to-br from-[#1b2844] to-[#0a1020]"></span>
+                    <span class="mt-2 block text-center text-xs font-bold">天神の夜</span>
+                  </span>
+                </label>
+              </div>
+            </fieldset>
+            <div class="mt-5 space-y-4">
+              <label class="block text-xs font-bold">スポット名<input id="title-input" type="text" value="福岡市役所西側ふれあい広場" maxlength="28" class="mt-2 w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-sm outline-none focus:border-festival" /></label>
+              <label class="block text-xs font-bold">日付<input id="date-input" type="text" maxlength="24" class="mt-2 w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-sm outline-none focus:border-festival" /></label>
+              <label class="block text-xs font-bold">ひとこと（任意）<input id="message-input" type="text" value="TENJIN, FUKUOKA" maxlength="36" class="mt-2 w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-sm outline-none focus:border-festival" /></label>
+            </div>
+          </section>
+        </aside>
+
+        <section class="min-w-0 rounded-[2rem] bg-ink p-5 sm:p-8 lg:p-10">
+          <div class="mb-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div class="text-white">
+              <p class="text-xs font-black tracking-[0.16em] text-sun">LIVE PREVIEW</p>
+              <h2 class="mt-2 font-serif text-2xl font-bold">完成イメージ</h2>
+            </div>
+            <span id="size-label" class="w-fit rounded-full bg-white/10 px-4 py-2 text-xs font-bold text-white/70">1:1 · 1200 × 1200 px</span>
+          </div>
+          <div class="grid min-h-[560px] place-items-center rounded-[1.5rem] bg-black/25 p-4 sm:p-8">
+            <canvas id="card-canvas" width="1200" height="1200" class="max-h-[72vh] max-w-full rounded-lg bg-white shadow-2xl" aria-label="記念カードのプレビュー"></canvas>
+          </div>
+          <div class="mt-6 flex flex-wrap items-center justify-between gap-3">
+            <button id="reset-button" type="button" class="rounded-full border border-white/15 px-5 py-3 text-sm font-bold text-white transition hover:bg-white/10">初期状態に戻す</button>
+            <button id="download-button" type="button" class="inline-flex items-center gap-2 rounded-full bg-sun px-6 py-3.5 text-sm font-black text-ink transition hover:-translate-y-0.5">
+              <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 21h14"/></svg>
+              JPGで保存
+            </button>
+          </div>
+          <p id="download-status" class="mt-4 text-right text-xs text-white/50" aria-live="polite"></p>
+        </section>
+      </div>
+    </div>
+  </section>
+  <script src="../scripts/card-maker.ts"></script>
+</BaseLayout>

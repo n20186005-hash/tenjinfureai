@@ -1,0 +1,14 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+<BaseLayout title="ページが見つかりません" noindex={true}>
+  <section class="grid min-h-[78vh] place-items-center px-4 pb-20 pt-32 text-center">
+    <div>
+      <p class="font-serif text-[8rem] font-bold leading-none text-moss/[0.12] sm:text-[12rem]">404</p>
+      <p class="eyebrow mt-6 justify-center before:hidden">LOST IN TENJIN</p>
+      <h1 class="display-title mt-5 text-4xl sm:text-5xl">このページは見つかりません。</h1>
+      <p class="mx-auto mt-5 max-w-lg text-sm leading-7 text-ink/60">URLが変更されたか、ページが削除された可能性があります。ホームからもう一度お探しください。</p>
+      <a href="/" class="mt-8 inline-flex rounded-full bg-ink px-6 py-3.5 text-sm font-bold text-white">ホームへ戻る</a>
+    </div>
+  </section>
+</BaseLayout>

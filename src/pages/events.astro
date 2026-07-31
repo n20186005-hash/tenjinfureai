@@ -1,0 +1,93 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import { eventSchedule, eventTips } from '@/data/events';
+const categoryClasses = {
+  '祭り': 'bg-festival text-white',
+  '地域': 'bg-moss text-white',
+  '文化': 'bg-night text-white',
+  'スポーツ': 'bg-sun text-ink',
+  '季節': 'bg-leaf text-white',
+};
+---
+<BaseLayout title="イベント" description="福岡市役所西側ふれあい広場の2026年度イベント予定と、来場時の楽しみ方・注意点を紹介します。" image="/images/plaza/night-food-event.webp">
+  <PageHero
+    eyebrow="EVENTS & FESTIVALS"
+    title="季節が変わるたび、広場が変わる。"
+    description="祭り、食、音楽、スポーツ、地域交流。天神の街なかで、福岡のさまざまな魅力に出会えます。"
+    image="/images/plaza/night-food-event.webp"
+    imageAlt="飲食ブースと来場者でにぎわう夜のふれあい広場"
+  />
+
+  <section class="section-shell pt-4">
+    <div class="container-site">
+      <div class="rounded-[2rem] bg-festival p-7 text-white sm:p-10">
+        <div class="grid gap-7 lg:grid-cols-[0.75fr_1.25fr] lg:items-center">
+          <div>
+            <p class="text-xs font-black tracking-[0.18em] text-white/60">SUMMER 2026</p>
+            <h2 class="mt-3 font-serif text-3xl font-bold sm:text-4xl">天神夏まつり2026</h2>
+          </div>
+          <div>
+            <p class="text-xl font-bold">2026年7月17日–8月23日</p>
+            <p class="mt-3 text-sm leading-7 text-white/75">開催時間の目安は17:30–22:00。夏の夜に屋台、盆踊り、ステージなどが集まる予定です。内容・時間は変更される場合があります。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-shell">
+    <div class="container-site">
+      <SectionHeading eyebrow="2026 SCHEDULE" title="2026年度 主な開催予定。" description="公式公開資料をもとに整理した予定です。天候、会場都合、主催者判断により変更・中止となる場合があります。" />
+      <div class="mt-12 overflow-hidden rounded-[2rem] border border-black/10 bg-white">
+        {eventSchedule.map((event, index) => (
+          <article class:list={['grid gap-4 p-6 sm:grid-cols-[150px_1fr_auto] sm:items-center sm:p-7', index !== eventSchedule.length - 1 && 'border-b border-black/[0.08]']}>
+            <p class="font-serif text-xl font-bold">{event.date}</p>
+            <div>
+              <h3 class="text-lg font-bold">{event.title}</h3>
+              {event.note && <p class="mt-1 text-sm leading-6 text-ink/[0.55]">{event.note}</p>}
+            </div>
+            <span class:list={['w-fit rounded-full px-3 py-1.5 text-xs font-black', categoryClasses[event.category]]}>{event.category}</span>
+          </article>
+        ))}
+      </div>
+      <p class="mt-5 text-xs leading-6 text-ink/50">※掲載内容は2026年6月公表の年間予定および各催事案内を参考にしています。最新情報は各イベント主催者の発表をご確認ください。</p>
+    </div>
+  </section>
+
+  <section class="section-shell bg-ink text-paper">
+    <div class="container-site">
+      <SectionHeading eyebrow="VISIT TIPS" title="イベントの日を、もっと楽しむ。" />
+      <div class="mt-12 grid gap-5 lg:grid-cols-3">
+        {eventTips.map((tip, index) => (
+          <article class="rounded-[1.75rem] border border-white/[0.12] bg-white/[0.06] p-7">
+            <span class="font-serif text-5xl font-bold text-sun/40">0{index + 1}</span>
+            <h3 class="mt-7 text-xl font-bold">{tip.title}</h3>
+            <p class="mt-4 text-sm leading-7 text-paper/60">{tip.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-shell">
+    <div class="container-site grid gap-6 md:grid-cols-2">
+      <figure class="overflow-hidden rounded-[2rem]">
+        <img src="/images/plaza/festival-dance.webp" alt="祭りの演舞と観客" class="aspect-[4/3] w-full object-cover" width="1000" height="750" loading="lazy" />
+      </figure>
+      <figure class="overflow-hidden rounded-[2rem]">
+        <img src="/images/plaza/night-aerial.webp" alt="夜空の下で開催される広場イベント" class="aspect-[4/3] w-full object-cover" width="1000" height="750" loading="lazy" />
+      </figure>
+    </div>
+  </section>
+
+  <section class="pb-24">
+    <div class="container-narrow rounded-[2rem] border border-black/10 bg-white p-8 text-center sm:p-12">
+      <p class="eyebrow justify-center before:hidden">BEFORE YOU GO</p>
+      <h2 class="display-title mt-5 text-4xl">アクセスを先に確認。</h2>
+      <p class="mx-auto mt-5 max-w-xl text-sm leading-7 text-ink/60">大規模イベント日は天神周辺が混雑します。地下鉄・西鉄・バスからのルートを確認して、余裕を持ってお越しください。</p>
+      <a href="/access" class="mt-7 inline-flex rounded-full bg-ink px-6 py-3.5 text-sm font-bold text-white">詳しい交通案内</a>
+    </div>
+  </section>
+</BaseLayout>

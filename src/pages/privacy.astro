@@ -1,0 +1,43 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+---
+<BaseLayout title="プライバシー" description="天神ふれあい広場ガイドのプライバシーポリシー。記念カードの端末内処理とアクセス解析について説明します。">
+  <PageHero
+    eyebrow="PRIVACY"
+    title="端末の中で、安心してつくる。"
+    description="記念カード機能の写真処理と、本サイトのアクセス解析についてご案内します。"
+  />
+
+  <section class="pb-24 pt-2">
+    <div class="container-narrow space-y-6">
+      <article class="card-surface p-7 sm:p-9">
+        <p class="text-xs font-black tracking-[0.16em] text-moss">01</p>
+        <h2 class="mt-3 font-serif text-2xl font-bold">記念カード機能</h2>
+        <div class="prose-jp mt-5 text-sm">
+          <p>撮影した写真、端末から選択した画像、入力したスポット名・日付・メッセージ、Canvasで合成した完成画像は、すべてお使いのブラウザ内で処理されます。本サイトのサーバーへアップロードされません。</p>
+          <p>編集状態はサーバーに保存されません。ページの再読み込みや終了により失われます。完成画像は、利用者が「JPGで保存」を選んだ場合に限り、ご自身の端末へ保存されます。</p>
+        </div>
+      </article>
+
+      <article class="card-surface p-7 sm:p-9">
+        <p class="text-xs font-black tracking-[0.16em] text-moss">02</p>
+        <h2 class="mt-3 font-serif text-2xl font-bold">アクセス解析</h2>
+        <div class="prose-jp mt-5 text-sm">
+          <p>本サイトでは、利用状況を把握し内容を改善するため、Google Analytics 4（GA4）を使用しています。GA4は閲覧ページ、端末情報、おおよその地域、参照元などの情報を収集する場合があります。</p>
+          <p>収集される情報やGoogleによるデータの取り扱いは、Googleが定めるポリシーに基づきます。記念カードに使用した写真や入力文字がGA4へ送信されることはありません。</p>
+        </div>
+      </article>
+
+      <article class="card-surface p-7 sm:p-9">
+        <p class="text-xs font-black tracking-[0.16em] text-moss">03</p>
+        <h2 class="mt-3 font-serif text-2xl font-bold">外部サービス</h2>
+        <div class="prose-jp mt-5 text-sm">
+          <p>「地図アプリで開く」などの外部リンクを選択すると、Google Maps等の外部サービスへ移動します。移動後の情報の取り扱いは、各サービスの規約とプライバシーポリシーに従います。</p>
+        </div>
+      </article>
+
+      <p class="text-xs leading-6 text-ink/50">制定日：2026年7月30日</p>
+    </div>
+  </section>
+</BaseLayout>

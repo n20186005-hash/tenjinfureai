@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Hiragino Kaku Gothic ProN", "Yu Gothic", "YuGothic", "Meiryo", system-ui, sans-serif;
+  --font-serif: "Yu Mincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", serif;
+  --color-ink: #17211b;
+  --color-paper: #f7f5ed;
+  --color-moss: #42654b;
+  --color-leaf: #78936f;
+  --color-sun: #e5a73a;
+  --color-festival: #d94a32;
+  --color-night: #1b2844;
+  --color-line: #d9ddd4;
+  --shadow-soft: 0 24px 70px rgba(23, 33, 27, 0.12);
+}
+
+:root {
+  color-scheme: light;
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: var(--color-paper);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--color-paper);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(229, 167, 58, 0.08), transparent 28rem),
+    linear-gradient(180deg, #fbfaf6 0%, var(--color-paper) 100%);
+}
+
+::selection {
+  color: white;
+  background: var(--color-festival);
+}
+
+img {
+  display: block;
+}
+
+a, button, input, select, textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(217, 74, 50, 0.5);
+  outline-offset: 3px;
+}
+
+.container-site {
+  width: min(100% - 2rem, 1180px);
+  margin-inline: auto;
+}
+
+.container-narrow {
+  width: min(100% - 2rem, 840px);
+  margin-inline: auto;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: var(--color-moss);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 1.8rem;
+  height: 1px;
+  background: currentColor;
+}
+
+.display-title {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 1.08;
+}
+
+.section-shell {
+  padding-block: clamp(4.5rem, 9vw, 8rem);
+}
+
+.card-surface {
+  border: 1px solid rgba(23, 33, 27, 0.1);
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 10px 35px rgba(23, 33, 27, 0.06);
+  backdrop-filter: blur(10px);
+}
+
+.kicker-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 999px;
+  background: var(--color-festival);
+  box-shadow: 0 0 0 0.35rem rgba(217, 74, 50, 0.1);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.prose-jp p {
+  line-height: 2;
+  color: rgba(23, 33, 27, 0.78);
+}
+
+.prose-jp p + p {
+  margin-top: 1.35rem;
+}
+
+.marquee-track {
+  animation: marquee 28s linear infinite;
+}
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

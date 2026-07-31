@@ -1,0 +1,83 @@
+---
+import { navigation, site } from '@/data/site';
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) => href === '/' ? currentPath === '/' : currentPath.startsWith(href);
+---
+<header class="fixed inset-x-0 top-0 z-50 border-b border-black/5 bg-[rgba(247,245,237,0.88)] backdrop-blur-xl">
+  <div class="container-site flex h-18 items-center justify-between gap-6">
+    <a href="/" class="group flex items-center gap-3" aria-label={`${site.name} ホーム`}>
+      <span class="grid size-10 place-items-center rounded-full bg-ink text-paper transition-transform group-hover:-rotate-6">
+        <svg viewBox="0 0 48 48" class="size-6" aria-hidden="true">
+          <path d="M8 31V17l16-8 16 8v14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+          <circle cx="24" cy="22" r="5" fill="#e5a73a"/>
+          <path d="M8 34h32M18 39h12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="leading-none">
+        <span class="block text-[10px] font-black tracking-[0.22em] text-moss">FUKUOKA TENJIN</span>
+        <span class="mt-1 block text-sm font-bold tracking-[0.04em]">{site.shortName}</span>
+      </span>
+    </a>
+
+    <nav class="hidden items-center gap-1 lg:flex" aria-label="メインナビゲーション">
+      {navigation.map((item) => (
+        <a
+          href={item.href}
+          class:list={[
+            'rounded-full px-3.5 py-2 text-sm font-bold transition-colors',
+            isActive(item.href) ? 'bg-ink text-paper' : 'text-ink/[0.65] hover:bg-white hover:text-ink',
+          ]}
+          aria-current={isActive(item.href) ? 'page' : undefined}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a href="/card" class="hidden rounded-full bg-festival px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-festival/15 transition hover:-translate-y-0.5 sm:inline-flex">
+        記念カードをつくる
+      </a>
+      <button
+        type="button"
+        class="grid size-11 place-items-center rounded-full border border-black/10 bg-white lg:hidden"
+        aria-label="メニューを開く"
+        aria-expanded="false"
+        data-menu-button
+      >
+        <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="hidden border-t border-black/5 bg-paper px-4 pb-5 pt-3 lg:hidden" data-mobile-menu>
+    <nav class="grid gap-1" aria-label="モバイルナビゲーション">
+      {navigation.map((item) => (
+        <a
+          href={item.href}
+          class:list={[
+            'rounded-xl px-4 py-3 text-sm font-bold',
+            isActive(item.href) ? 'bg-ink text-paper' : 'bg-white/[0.60] text-ink',
+          ]}
+        >
+          {item.label}
+        </a>
+      ))}
+      <a href="/card" class="mt-2 rounded-xl bg-festival px-4 py-3 text-center text-sm font-bold text-white">記念カードをつくる</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>('[data-menu-button]');
+  const menu = document.querySelector<HTMLElement>('[data-mobile-menu]');
+
+  button?.addEventListener('click', () => {
+    const open = button.getAttribute('aria-expanded') === 'true';
+    button.setAttribute('aria-expanded', String(!open));
+    button.setAttribute('aria-label', open ? 'メニューを開く' : 'メニューを閉じる');
+    menu?.classList.toggle('hidden', open);
+  });
+</script>

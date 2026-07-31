@@ -1,0 +1,45 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+---
+<BaseLayout title="写真・情報出典" description="天神ふれあい広場ガイドで参照した公的情報と写真素材の出典を掲載します。" noindex={true}>
+  <PageHero
+    eyebrow="CREDITS & SOURCES"
+    title="写真と情報について。"
+    description="内容の正確性を保つため、公的機関および各施設・店舗の公開情報を参照しています。"
+  />
+
+  <section class="pb-24 pt-2">
+    <div class="container-narrow space-y-6">
+      <article class="card-surface p-7 sm:p-9">
+        <h2 class="font-serif text-2xl font-bold">主な情報出典</h2>
+        <ul class="mt-5 space-y-3 text-sm leading-7 text-ink/[0.65]">
+          <li>福岡市役所西側ふれあい広場 公式案内・年間イベント予定</li>
+          <li>福岡市 ふれあい広場施設情報・福岡市役所アクセス案内</li>
+          <li>福岡市公式シティガイド「よかなび」</li>
+          <li>天神中央公園、アクロス福岡、水鏡天満宮、旧福岡県公会堂貴賓館の公開情報</li>
+          <li>元祖博多めんたい重、天神ホルモン、一藤の各公式店舗情報</li>
+        </ul>
+      </article>
+
+      <article class="card-surface p-7 sm:p-9">
+        <h2 class="font-serif text-2xl font-bold">写真素材</h2>
+        <div class="mt-5 space-y-5 text-sm leading-7 text-ink/[0.65]">
+          <div>
+            <h3 class="font-bold text-ink">広場・周辺スポット</h3>
+            <p>福岡市公式シティガイド「よかなび」掲載写真を、サイト実装確認用のローカル素材として収録しています。</p>
+          </div>
+          <div>
+            <h3 class="font-bold text-ink">周辺グルメ</h3>
+            <p>元祖博多めんたい重、天神ホルモン、一藤の各公式サイト掲載写真を、サイト実装確認用のローカル素材として収録しています。</p>
+          </div>
+        </div>
+      </article>
+
+      <aside class="rounded-[1.5rem] border border-festival/20 bg-festival/[0.07] p-6 text-sm leading-7 text-ink/[0.65]">
+        <strong class="text-festival">公開前の確認事項：</strong>
+        本プロジェクトに同梱された第三者写真を商用サイトや一般公開サイトで継続利用する場合は、権利者の利用条件を確認し、必要に応じて許諾取得または自ら撮影した写真への差し替えを行ってください。
+      </aside>
+    </div>
+  </section>
+</BaseLayout>

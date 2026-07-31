@@ -1,0 +1,200 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import { quickFacts, site } from '@/data/site';
+import { eventSchedule } from '@/data/events';
+import { foodSpots } from '@/data/food';
+import { nearbySpots } from '@/data/nearby';
+
+const featuredEvent = eventSchedule.find((event) => event.featured);
+---
+<BaseLayout>
+  <section class="relative min-h-[760px] overflow-hidden pt-18 lg:min-h-[820px]">
+    <img src="/images/plaza/festival-dance.webp" alt="福岡市役所西側ふれあい広場で行われる祭りのステージ" class="absolute inset-0 size-full object-cover" width="1920" height="1080" fetchpriority="high" />
+    <div class="absolute inset-0 bg-linear-to-r from-ink/90 via-ink/[0.54] to-ink/5"></div>
+    <div class="absolute inset-0 bg-linear-to-t from-ink/55 via-transparent to-transparent"></div>
+    <div class="container-site relative z-10 flex min-h-[742px] items-end pb-16 pt-32 lg:min-h-[802px] lg:pb-20">
+      <div class="max-w-4xl text-paper">
+        <div class="flex flex-wrap items-center gap-3">
+          <span class="rounded-full border border-white/25 bg-white/10 px-4 py-2 text-xs font-bold tracking-[0.12em] backdrop-blur">FUKUOKA / TENJIN</span>
+          <span class="flex items-center gap-2 rounded-full bg-sun px-4 py-2 text-xs font-black text-ink">
+            <span class="size-1.5 rounded-full bg-festival"></span>
+            街なかのイベント広場
+          </span>
+        </div>
+        <h1 class="display-title mt-7 text-balance text-5xl sm:text-7xl lg:text-[6.6rem]">
+          天神の真ん中で、<br />福岡の今日に出会う。
+        </h1>
+        <p class="mt-7 max-w-2xl text-base leading-8 text-paper/[0.78] sm:text-lg">
+          福岡市役所西側ふれあい広場。芝生でひと息つく日も、祭りの熱気に包まれる夜も。天神散策の起点になる非公式ガイドです。
+        </p>
+        <div class="mt-9 flex flex-wrap gap-3">
+          <a href="/events" class="rounded-full bg-paper px-6 py-3.5 text-sm font-black text-ink transition hover:-translate-y-0.5">開催イベントを見る</a>
+          <a href="/access" class="rounded-full border border-white/30 bg-white/10 px-6 py-3.5 text-sm font-bold text-white backdrop-blur transition hover:bg-white/20">行き方を確認</a>
+        </div>
+      </div>
+    </div>
+    <div class="absolute bottom-0 right-0 hidden w-[36%] rounded-tl-[2.5rem] bg-paper p-7 lg:block">
+      <div class="grid grid-cols-2 gap-6">
+        <div>
+          <p class="text-[10px] font-black tracking-[0.18em] text-moss">OPEN SPACE</p>
+          <p class="mt-2 font-serif text-2xl font-bold">8:00–21:00</p>
+        </div>
+        <div>
+          <p class="text-[10px] font-black tracking-[0.18em] text-moss">FROM TENJIN</p>
+          <p class="mt-2 font-serif text-2xl font-bold">徒歩 約4分</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="overflow-hidden border-b border-black/10 bg-sun py-3 text-ink">
+    <div class="marquee-track flex w-max items-center whitespace-nowrap text-xs font-black tracking-[0.16em]">
+      {[0, 1].map(() => (
+        <div class="flex items-center">
+          {['CITY PLAZA', 'FESTIVAL', 'GREEN LAWN', 'TENJIN WALK', 'LOCAL FOOD', 'MEMORY CARD'].map((text) => (
+            <span class="flex items-center gap-5 px-5"><span>{text}</span><span class="kicker-dot"></span></span>
+          ))}
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <section class="section-shell">
+    <div class="container-site">
+      <SectionHeading
+        eyebrow="PLAZA AT A GLANCE"
+        title="知っておきたい、4つのこと。"
+        description="天神の駅・商業エリアから歩いてすぐ。イベントがない時間も、都市の余白として親しまれる開放的な広場です。"
+      />
+      <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {quickFacts.map((fact, index) => (
+          <article class="card-surface relative overflow-hidden p-6">
+            <span class="font-serif text-5xl font-bold text-moss/[0.12]">0{index + 1}</span>
+            <p class="mt-8 text-xs font-black tracking-[0.15em] text-moss">{fact.label}</p>
+            <p class="mt-2 text-lg font-bold leading-7">{fact.value}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-shell overflow-hidden bg-ink text-paper">
+    <div class="container-site grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+      <div>
+        <p class="eyebrow text-sun">EVENT CULTURE</p>
+        <h2 class="display-title mt-5 text-balance text-4xl sm:text-5xl lg:text-6xl">何もない日も、<br />特別な日も。</h2>
+        <p class="mt-7 max-w-xl text-base leading-8 text-paper/[0.65]">
+          観光PR、物産展、音楽、地域イベント。広場は、季節と人が交わるステージです。博多どんたくのフィナーレをはじめ、福岡らしい催しが一年を彩ります。
+        </p>
+        {featuredEvent && (
+          <div class="mt-9 rounded-2xl border border-white/15 bg-white/[0.07] p-5">
+            <p class="text-xs font-black tracking-[0.16em] text-sun">2026 FEATURED</p>
+            <p class="mt-2 text-xl font-bold">{featuredEvent.title}</p>
+            <p class="mt-2 text-sm text-paper/60">{featuredEvent.date} ・ {featuredEvent.note}</p>
+          </div>
+        )}
+        <a href="/events" class="mt-8 inline-flex items-center gap-3 text-sm font-black text-sun">
+          年間イベント案内 <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+      <div class="grid grid-cols-2 gap-3 sm:gap-5">
+        <figure class="col-span-2 overflow-hidden rounded-[2rem]">
+          <img src="/images/plaza/night-food-event.webp" alt="夜のイベントでにぎわうふれあい広場" class="aspect-[16/8] w-full object-cover" width="1200" height="600" loading="lazy" />
+        </figure>
+        <figure class="overflow-hidden rounded-[1.5rem]">
+          <img src="/images/plaza/plaza-aerial.webp" alt="上空から見た福岡市役所西側ふれあい広場" class="aspect-square w-full object-cover" width="700" height="700" loading="lazy" />
+        </figure>
+        <figure class="overflow-hidden rounded-[1.5rem]">
+          <img src="/images/plaza/night-aerial.webp" alt="照明が灯る夜のふれあい広場" class="aspect-square w-full object-cover" width="700" height="700" loading="lazy" />
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-shell">
+    <div class="container-site">
+      <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+        <SectionHeading eyebrow="TASTE TENJIN" title="広場から歩く、福岡の味。" description="イベントの前後に立ち寄りやすい、天神・西中洲の福岡名物を選びました。" />
+        <a href="/food" class="shrink-0 rounded-full border border-black/15 px-5 py-3 text-sm font-bold transition hover:bg-ink hover:text-paper">周辺グルメをすべて見る</a>
+      </div>
+      <div class="mt-12 grid gap-5 lg:grid-cols-3">
+        {foodSpots.map((spot) => (
+          <article class="group overflow-hidden rounded-[1.75rem] border border-black/10 bg-white">
+            <div class="overflow-hidden">
+              <img src={spot.image} alt={spot.imageAlt} class="aspect-[4/3] w-full object-cover transition duration-700 group-hover:scale-105" width="800" height="600" loading="lazy" />
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between gap-3 text-xs font-bold text-moss">
+                <span>{spot.genre}</span><span>{spot.walk}</span>
+              </div>
+              <h3 class="mt-3 font-serif text-2xl font-bold">{spot.name}</h3>
+              <p class="mt-3 text-sm leading-7 text-ink/60">{spot.description}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-shell border-y border-black/10 bg-white/[0.55]">
+    <div class="container-site">
+      <div class="grid gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
+        <SectionHeading eyebrow="TENJIN WALK" title="広場の先へ、まちを歩く。" description="公園、緑の建築、神社、歴史的洋館。徒歩10分圏に、天神のいくつもの表情が集まっています。" />
+        <div class="grid grid-cols-2 gap-3 sm:gap-5">
+          {nearbySpots.slice(0, 2).map((spot) => (
+            <a href="/nearby" class="group relative overflow-hidden rounded-[1.75rem] text-white">
+              <img src={spot.image} alt={spot.imageAlt} class="aspect-[4/5] w-full object-cover transition duration-700 group-hover:scale-105" width="700" height="875" loading="lazy" />
+              <div class="absolute inset-0 bg-linear-to-t from-ink/[0.85] via-ink/10 to-transparent"></div>
+              <div class="absolute inset-x-0 bottom-0 p-5 sm:p-7">
+                <p class="text-xs font-bold text-white/70">{spot.walk}</p>
+                <h3 class="mt-2 font-serif text-xl font-bold sm:text-2xl">{spot.name}</h3>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-shell">
+    <div class="container-site overflow-hidden rounded-[2.5rem] bg-festival text-white shadow-soft">
+      <div class="grid lg:grid-cols-[1fr_0.9fr]">
+        <div class="p-8 sm:p-12 lg:p-16">
+          <p class="text-xs font-black tracking-[0.18em] text-white/60">LOCAL-ONLY MEMORY CARD</p>
+          <h2 class="display-title mt-5 text-balance text-4xl sm:text-5xl">今日の天神を、<br />一枚の記念に。</h2>
+          <p class="mt-6 max-w-xl text-base leading-8 text-white/75">撮影した写真や端末内の画像に、場所と日付を重ねてオリジナルカードを作れます。画像はサーバーへ送信されません。</p>
+          <div class="mt-6 inline-flex items-center gap-2 rounded-full bg-white/[0.12] px-4 py-2 text-xs font-bold">
+            <svg viewBox="0 0 24 24" class="size-4" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
+            写真はお使いの端末にのみ保存されます
+          </div>
+          <a href="/card" class="mt-8 inline-flex rounded-full bg-white px-6 py-3.5 text-sm font-black text-festival transition hover:-translate-y-0.5">記念カードをつくる</a>
+        </div>
+        <div class="relative min-h-80 overflow-hidden bg-night p-9 sm:min-h-96">
+          <div class="absolute -right-12 -top-12 size-52 rounded-full border-[28px] border-sun/30"></div>
+          <div class="absolute bottom-8 left-10 right-10 rotate-3 overflow-hidden rounded-2xl border-[10px] border-white bg-white shadow-2xl">
+            <img src="/images/plaza/night-aerial.webp" alt="記念カードの完成イメージ" class="aspect-[4/5] w-full object-cover" width="600" height="750" loading="lazy" />
+            <div class="absolute inset-x-5 bottom-5 rounded-xl bg-ink/75 p-4 backdrop-blur">
+              <p class="font-serif text-xl font-bold">天神ふれあい広場</p>
+              <p class="mt-1 text-xs tracking-[0.15em] text-white/70">FUKUOKA · 2026.07.30</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pb-24">
+    <div class="container-site flex flex-col gap-6 rounded-[2rem] border border-black/10 bg-white p-7 sm:flex-row sm:items-center sm:justify-between sm:p-10">
+      <div>
+        <p class="text-xs font-black tracking-[0.16em] text-moss">VISIT INFORMATION</p>
+        <h2 class="mt-3 font-serif text-3xl font-bold">迷わず、広場へ。</h2>
+        <p class="mt-3 text-sm leading-7 text-ink/60">{site.address}。地下鉄・西鉄・バスからの詳しいルートをまとめました。</p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a href="/access" class="rounded-full bg-ink px-5 py-3 text-sm font-bold text-white">詳しいアクセス</a>
+        <a href={site.mapUrl} target="_blank" rel="noreferrer" class="rounded-full border border-black/15 px-5 py-3 text-sm font-bold">地図アプリで開く ↗</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

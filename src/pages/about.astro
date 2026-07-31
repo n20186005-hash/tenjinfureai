@@ -1,0 +1,104 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+---
+<BaseLayout title="広場を知る" description="福岡市役所西側ふれあい広場の特徴、設備、過ごし方、利用時のポイントを紹介します。" image="/images/plaza/plaza-aerial.webp">
+  <PageHero
+    eyebrow="ABOUT THE PLAZA"
+    title="天神にひらかれた、街のステージ。"
+    description="福岡市役所の西側に広がる、人工芝のオープンスペース。休憩の場所であり、福岡の魅力を発信するイベント会場でもあります。"
+    image="/images/plaza/plaza-aerial.webp"
+    imageAlt="上空から見た福岡市役所西側ふれあい広場"
+  />
+
+  <section class="section-shell pt-4">
+    <div class="container-narrow prose-jp">
+      <p class="font-serif text-2xl font-bold leading-[1.8] text-ink sm:text-3xl">
+        買い物の途中に足を止める人。ステージに声援を送る人。屋台の香りに誘われる人。ここでは、福岡の日常と祝祭が自然に重なります。
+      </p>
+      <p>福岡市役所西側ふれあい広場は、天神の中心部に位置する屋外広場です。人工芝の広場に加え、屋外ステージ、屋根、移動式ステージなどを備え、観光・物産PR、企業イベント、音楽、地域交流といった多様な催しに利用されています。</p>
+      <p>通常の利用時間の目安は8:00から21:00。イベントがない時間帯は、天神を歩く人にとって気軽に立ち寄れる都市の余白です。一方、催しの日には会場レイアウトや入場方法が変わるため、主催者の案内を確認して訪れるのがおすすめです。</p>
+    </div>
+  </section>
+
+  <section class="section-shell bg-ink text-paper">
+    <div class="container-site">
+      <SectionHeading eyebrow="THREE FACES" title="広場が見せる、3つの表情。" description="予定を決め込まず立ち寄っても、イベントを目当てに訪れても楽しめます。" />
+      <div class="mt-12 grid gap-5 lg:grid-cols-3">
+        <article class="overflow-hidden rounded-[1.75rem] bg-white/[0.07]">
+          <img src="/images/plaza/plaza-aerial.webp" alt="緑の人工芝が広がる広場" class="aspect-[4/3] w-full object-cover" width="800" height="600" loading="lazy" />
+          <div class="p-7">
+            <p class="text-xs font-black tracking-[0.16em] text-sun">01 / DAILY</p>
+            <h3 class="mt-3 font-serif text-2xl font-bold">街の休憩場所</h3>
+            <p class="mt-4 text-sm leading-7 text-paper/60">駅や商業施設のすぐそばで、空を見上げられる貴重なオープンスペース。待ち合わせや短い休憩にも。</p>
+          </div>
+        </article>
+        <article class="overflow-hidden rounded-[1.75rem] bg-white/[0.07]">
+          <img src="/images/plaza/festival-dance.webp" alt="広場のステージで行われる祭り" class="aspect-[4/3] w-full object-cover" width="800" height="600" loading="lazy" />
+          <div class="p-7">
+            <p class="text-xs font-black tracking-[0.16em] text-sun">02 / FESTIVAL</p>
+            <h3 class="mt-3 font-serif text-2xl font-bold">福岡を伝える舞台</h3>
+            <p class="mt-4 text-sm leading-7 text-paper/60">博多どんたくをはじめ、食、文化、地域の魅力を発信する催しが集まります。</p>
+          </div>
+        </article>
+        <article class="overflow-hidden rounded-[1.75rem] bg-white/[0.07]">
+          <img src="/images/plaza/night-food-event.webp" alt="夜のイベントと飲食ブース" class="aspect-[4/3] w-full object-cover" width="800" height="600" loading="lazy" />
+          <div class="p-7">
+            <p class="text-xs font-black tracking-[0.16em] text-sun">03 / NIGHT</p>
+            <h3 class="mt-3 font-serif text-2xl font-bold">夜のにぎわい</h3>
+            <p class="mt-4 text-sm leading-7 text-paper/60">照明、音楽、屋台が加わると、昼とは違う都市の祝祭空間へ。天神の夜歩きの起点になります。</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-shell">
+    <div class="container-site grid gap-12 lg:grid-cols-[0.9fr_1.1fr]">
+      <div>
+        <p class="eyebrow">FACILITIES</p>
+        <h2 class="display-title mt-5 text-4xl sm:text-5xl">会場の特徴。</h2>
+        <p class="mt-6 text-base leading-8 text-ink/[0.65]">イベント時は仮設設備や客席が追加され、通路・入口・利用可能な範囲が変わります。</p>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2">
+        {[
+          ['人工芝の広場', '都市の中心で緑を感じられる、開放的なメインスペース。'],
+          ['屋外ステージ', '音楽や式典、地域PRなどに使われる常設の舞台。'],
+          ['屋根・移動式ステージ', '多様な催しに合わせて会場構成を変えられる設備。'],
+          ['駅から徒歩圏', '地下鉄、西鉄、バスの主要ターミナルからアクセスしやすい立地。'],
+        ].map(([title, body], index) => (
+          <article class="card-surface p-6">
+            <span class="grid size-9 place-items-center rounded-full bg-moss text-sm font-black text-white">{index + 1}</span>
+            <h3 class="mt-5 text-lg font-bold">{title}</h3>
+            <p class="mt-3 text-sm leading-7 text-ink/60">{body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="pb-24">
+    <div class="container-site rounded-[2rem] bg-sun/[0.18] p-8 sm:p-12">
+      <div class="grid gap-10 lg:grid-cols-[0.7fr_1.3fr]">
+        <div>
+          <p class="eyebrow">GOOD MANNERS</p>
+          <h2 class="display-title mt-5 text-4xl">気持ちよく過ごすために。</h2>
+        </div>
+        <div class="grid gap-4 sm:grid-cols-2">
+          {[
+            ['イベント案内を優先', '開催日は主催者が定める入場方法、禁止事項、撮影ルールに従いましょう。'],
+            ['ごみは指定場所へ', '飲食イベントでは分別回収場所を利用し、通常時は持ち帰りを心がけましょう。'],
+            ['通路をふさがない', '市役所や周辺施設へ向かう人の動線を確保し、混雑時は立ち止まりに注意。'],
+            ['天候に備える', '屋外のため、夏は暑さ対策、雨天時は足元と開催情報を確認してください。'],
+          ].map(([title, body]) => (
+            <div class="rounded-2xl bg-white/[0.075] p-5">
+              <h3 class="font-bold">{title}</h3>
+              <p class="mt-2 text-sm leading-7 text-ink/60">{body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

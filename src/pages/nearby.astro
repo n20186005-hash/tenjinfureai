@@ -1,0 +1,80 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import { nearbySpots, walkingRoute } from '@/data/nearby';
+---
+<BaseLayout title="周辺スポット" description="福岡市役所西側ふれあい広場から歩ける天神中央公園、アクロス福岡、水鏡天満宮、旧福岡県公会堂貴賓館を紹介。" image="/images/nearby/acros-fukuoka.webp">
+  <PageHero
+    eyebrow="NEARBY PLACES"
+    title="徒歩10分に、天神の物語がある。"
+    description="都市の緑、地名の由来、近代建築。広場を起点にすると、天神の街が立体的に見えてきます。"
+    image="/images/nearby/acros-fukuoka.webp"
+    imageAlt="天神中央公園とアクロス福岡のステップガーデン"
+  />
+
+  <section class="section-shell pt-4">
+    <div class="container-site grid gap-6 md:grid-cols-2">
+      {nearbySpots.map((spot) => (
+        <article class="group overflow-hidden rounded-[2rem] border border-black/10 bg-white">
+          <div class="overflow-hidden">
+            <img src={spot.image} alt={spot.imageAlt} class="aspect-[16/10] w-full object-cover transition duration-700 group-hover:scale-105" width="1000" height="625" loading="lazy" />
+          </div>
+          <div class="p-7 sm:p-8">
+            <div class="flex flex-wrap items-center gap-2 text-xs font-bold">
+              <span class="rounded-full bg-moss px-3 py-1.5 text-white">{spot.walk}</span>
+              <span class="rounded-full bg-paper px-3 py-1.5 text-moss">{spot.stay}</span>
+            </div>
+            <h2 class="mt-5 font-serif text-3xl font-bold">{spot.name}</h2>
+            <p class="mt-4 text-sm leading-7 text-ink/[0.65]">{spot.description}</p>
+            <p class="mt-5 border-t border-black/10 pt-5 text-xs font-black tracking-[0.12em] text-festival">{spot.highlight}</p>
+          </div>
+        </article>
+      ))}
+    </div>
+    <p class="container-site mt-5 text-xs leading-6 text-ink/50">※徒歩時間は信号待ちを含まない概算です。開館時間、休館日、入場条件は各施設の最新案内をご確認ください。</p>
+  </section>
+
+  <section class="section-shell bg-ink text-paper">
+    <div class="container-site grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+      <div>
+        <p class="eyebrow text-sun">60–90 MINUTE WALK</p>
+        <h2 class="display-title mt-5 text-4xl sm:text-5xl">天神の緑と歴史をめぐる。</h2>
+        <p class="mt-6 max-w-lg text-base leading-8 text-paper/60">広場から那珂川方面へ。短い距離の中で、現代の都市空間から神社、近代洋館へと景色が変わります。</p>
+      </div>
+      <ol class="relative space-y-4 before:absolute before:bottom-8 before:left-[1.45rem] before:top-8 before:w-px before:bg-white/20">
+        {walkingRoute.map((stop, index) => (
+          <li class="relative grid grid-cols-[3rem_1fr] gap-4 rounded-2xl border border-white/10 bg-white/[0.06] p-5">
+            <span class="z-10 grid size-12 place-items-center rounded-full bg-sun text-sm font-black text-ink">{index + 1}</span>
+            <div>
+              <div class="flex flex-wrap items-center gap-3">
+                <h3 class="font-bold">{stop.place}</h3>
+                <span class="text-xs font-black text-sun">{stop.time}</span>
+              </div>
+              <p class="mt-2 text-sm leading-6 text-paper/[0.55]">{stop.note}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section-shell">
+    <div class="container-site">
+      <SectionHeading eyebrow="WALKING NOTES" title="まち歩きの小さなヒント。" />
+      <div class="mt-12 grid gap-5 md:grid-cols-3">
+        {[
+          ['午前の散歩', '公園の緑と建築をゆっくり楽しむなら、人通りが比較的穏やかな午前中に。'],
+          ['雨の日', '地下街を活用しながら天神駅周辺を移動し、屋内施設を中心に組み立てると快適です。'],
+          ['夕方から夜', '貴賓館や川辺を経て西中洲へ向かえば、そのまま夕食の時間につなげられます。'],
+        ].map(([title, body], index) => (
+          <article class="card-surface p-7">
+            <span class="font-serif text-5xl font-bold text-moss/[0.15]">0{index + 1}</span>
+            <h3 class="mt-7 text-xl font-bold">{title}</h3>
+            <p class="mt-4 text-sm leading-7 text-ink/60">{body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
