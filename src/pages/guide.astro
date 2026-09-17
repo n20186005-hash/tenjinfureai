@@ -1,0 +1,213 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import PageHero from '@/components/PageHero.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import Weather from '@/components/Weather.astro';
+
+const seasons = [
+  { name: '春（3–5月）', climate: '15–22°C目安。朝晩は肌寒く、昼は過ごしやすい。', recommend: '新緑の散策、ステージイベント、週末の屋外催し。', caution: '花粉の飛散、夕方の冷え込みに注意。', event: '博多どんたく（5月）・フレンドシップフェス（4月）' },
+  { name: '夏（6–8月）', climate: '梅雨（6–7月）は湿度が高く、8月は猛暑で35°C超の日も。', recommend: '夕涼み、ナイトイベント、屋台のにぎわい。', caution: '熱中症対策、突然の夕立や台風（8–9月）に注意。', event: '天神夏まつり（7–8月）・博多祇園山笠（7月）' },
+  { name: '秋（9–11月）', climate: '過ごしやすい日が多く、台風のピークは9月頃。', recommend: 'イベントの多い秋、紅葉散策、夜のまち歩き。', caution: '台風後の荒天や強風に注意。', event: 'ふくこいアジア祭り（11月）・環境フェス・天神市' },
+  { name: '冬（12–2月）', climate: '5–12°C目安。乾燥した晴れの日が多く、積雪は稀。', recommend: 'イルミネーション、年末年始のムード、澄んだ空気の夜。', caution: '寒さ対策。風の強い日は体感気温が下がります。', event: 'クリスマス献血・年末年始の市役所周辺' },
+];
+
+const facilities = [
+  { icon: '🚻', title: '公衆トイレ', body: '市役所や周辺施設・商業ビル内に、多目的・ベビー対応のトイレがあります。イベント時は仮設トイレが追加されることも。' },
+  { icon: '🅿️', title: '駐車場', body: '広場専用の駐車場はありません。周辺の公共・商業施設の時間貸し駐車場（コインパーキング等）を利用。イベント時は満車必至で、公共交通が安心です。' },
+  { icon: '🍜', title: '飲食', body: '周辺には「和食・居酒屋」「ラーメン・麺類」「カフェ・ベーカリー」「郷土料理（もつ鍋・明太子等）」のタイプが混在。予算や気分で選べます。' },
+  { icon: '🛏️', title: '宿泊', body: '周辺に「ビジネスホテル」「シティホテル」「カプセル・簡易宿所」など複数タイプがあり、天神・博多・中洲が移動の拠点になります。' },
+  { icon: '🏬', title: '商業施設', body: '「百貨店」「ファッションビル」「総合スーパー」「ドラッグストア」が駅直結・徒歩圏にあり、買い物と立ち寄りがしやすい立地です。' },
+  { icon: '⛽', title: '給油・充電', body: '周辺に「ガソリンスタンド（セルフ・フル）」「EV充電ステーション（商業施設・駐車場併設）」のタイプがあります。長距離は出発前にご確認を。' },
+  { icon: '🏧', title: 'コンビニ・ATM', body: '周辺に複数のコンビニエンスストアと、銀行・コンビニATMがあります。ちょっとした買い物や現金調達に便利です。' },
+  { icon: '💊', title: '薬局・医療', body: '周辺に薬局・ドラッグストアがあり、体調不良時は区市の医療案内窓口や救急相談窓口をご利用ください。' },
+  { icon: '♿', title: 'ベビー・車いす', body: '広場周辺は概ね平坦。多目的トイレやエレベーター併設の施設が点在。催事設備で動線が変わる場合は主催者案内を。' },
+];
+
+const plans = [
+  {
+    title: '半日コース（約2.5–3時間）',
+    body: '広場を起点に、徒歩圏の緑と歴史を軽く巡ります。',
+    steps: [
+      'ふれあい広場でイベントや広場の空気を楽しむ（約30分）',
+      '天神中央公園で芝生と水辺にひと休み（約30分）',
+      'アクロス福岡 ステップガーデンを眺める（約30分）',
+      '周辺でランチ（飲食のタイプから気分で選ぶ）',
+      '水鏡天満宮で「天神」の由来に触れる（約15分）',
+      '天神の商店街・商業施設を散策して締めくくり',
+    ],
+  },
+  {
+    title: '全日コース（約5–6時間）',
+    body: '午前から夜まで、天神と川沿いをじっくりめぐります。',
+    steps: [
+      '午前に広場と周辺をじっくり散策',
+      'アクロス福岡・天神中央公園をゆっくり巡る',
+      'ランチは西中洲・中洲川端など川沿いの飲食タイプで',
+      '旧福岡県公会堂貴賓館（洋館）で近代史に触れる',
+      '夕方、広場のイベント（開催日）へ、または天神の夜景へ',
+    ],
+  },
+];
+
+const styles = [
+  { icon: '👨‍👩‍👧', title: '親子ファミリー', body: '駅〜広場はベビーカーで移動しやすい平坦ルート。芝生で休憩、中央公園の水辺、屋台イベントで五感を楽しむ。授乳・おむつ替えは周辺施設の多目的トイレを。' },
+  { icon: '📷', title: '写真・自然', body: '朝の光と夕刻の黄金時間がおすすめ。アクロス段状の緑、水鏡天満宮の映り込み、夜のライトアップと屋台の明かりを狙って。' },
+  { icon: '♿', title: 'バリアフリー・低体力', body: '無理なく周辺2–3スポットをつなぐ。日影や屋内（商業施設・市役所）へ逃げられる動線を意識し、休憩をこまめに。' },
+];
+
+const responsibilities = [
+  ['ゴミの持ち帰り・分別', '飲食イベントでは分別回収を利用し、通常時は持ち帰りを心がけましょう。'],
+  ['騒音・他利用者への配慮', '住宅や施設が近い立地。夜の声量や音に気を配り、周囲の方と気持ちよく共有できる空間を。'],
+  ['ペットのマナー', 'リードは必須、排泄物の処理を。イベント開催時は主催者や施設の案内に従ってください。'],
+  ['禁煙・火気', '屋外の多くの場所は禁煙。屋台以外の用火は禁止されています。'],
+  ['環境にやさしいまち歩き', '公共交通の利用、マイボトル、過剰な包装を避けるなど、小さな工夫を。'],
+];
+---
+
+<BaseLayout title="楽しみ方・計画ガイド" description="天神ふれあい広場の季節の過ごし方、周辺の施設タイプ、おすすめルート、そして訪客としての心得をまとめた非公式ガイド。" image="/images/plaza/plaza-aerial.webp">
+  <PageHero
+    eyebrow="PLAN YOUR VISIT"
+    title="天神を、余白まで楽しむ。"
+    description="天気の読み方から、季節ごとの過ごし方、周辺の施設タイプ、おすすめルートまで。訪れる前に、計画の材料をそろえます。"
+    image="/images/plaza/plaza-aerial.webp"
+    imageAlt="上空から見た福岡市役所西側ふれあい広場と天神の街並み"
+  />
+
+  <Weather />
+
+  <section class="section-shell">
+    <div class="container-site">
+      <SectionHeading
+        eyebrow="SEASONAL GUIDE"
+        title="季節で変わる、すごし方。"
+        description="福岡の気候の目安です（年による差があります）。広場は屋外、季節の準備をして訪れるとより快適です。"
+      />
+      <div class="mt-12 grid gap-4 sm:grid-cols-2">
+        {seasons.map((s) => (
+          <article class="card-surface p-7">
+            <h3 class="font-serif text-2xl font-bold">{s.name}</h3>
+            <dl class="mt-5 space-y-4 text-sm">
+              <div>
+                <dt class="text-xs font-black tracking-[0.12em] text-moss">気候の目安</dt>
+                <dd class="mt-1 leading-7 text-ink/65">{s.climate}</dd>
+              </div>
+              <div>
+                <dt class="text-xs font-black tracking-[0.12em] text-moss">広場のおすすめ</dt>
+                <dd class="mt-1 leading-7 text-ink/65">{s.recommend}</dd>
+              </div>
+              <div>
+                <dt class="text-xs font-black tracking-[0.12em] text-festival">注意点</dt>
+                <dd class="mt-1 leading-7 text-ink/65">{s.caution}</dd>
+              </div>
+              <div class="rounded-xl bg-ink/[0.05] px-4 py-3">
+                <dt class="text-xs font-black tracking-[0.12em] text-ink/45">主なイベント</dt>
+                <dd class="mt-1 font-bold leading-7 text-ink/80">{s.event}</dd>
+              </div>
+            </dl>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-shell bg-ink text-paper">
+    <div class="container-site">
+      <SectionHeading
+        eyebrow="SERVICES & FACILITIES"
+        title="周辺の施設は、タイプで知る。"
+        description="特定の店名はあえて挙げません。周辺にある「施設のタイプ」を把握して、自分の用途に合わせて選んでください。"
+      />
+      <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {facilities.map((f) => (
+          <article class="rounded-[1.5rem] bg-white/[0.07] p-6">
+            <span class="text-3xl" aria-hidden="true">{f.icon}</span>
+            <h3 class="mt-4 text-lg font-bold">{f.title}</h3>
+            <p class="mt-3 text-sm leading-7 text-paper/60">{f.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-shell">
+    <div class="container-site">
+      <SectionHeading
+        eyebrow="RECOMMENDED ROUTES"
+        title="滞在時間で選ぶ、2つのルート。"
+        description="広場を拠点に、徒歩で回れる範囲をコースにしました。天候や体調に合わせてアレンジを。"
+      />
+      <div class="mt-12 grid gap-5 lg:grid-cols-2">
+        {plans.map((plan) => (
+          <article class="card-surface p-7">
+            <h3 class="font-serif text-2xl font-bold">{plan.title}</h3>
+            <p class="mt-3 text-sm leading-7 text-ink/[0.6]">{plan.body}</p>
+            <ol class="mt-6 space-y-3">
+              {plan.steps.map((step, i) => (
+                <li class="flex gap-3 text-sm leading-7 text-ink/70">
+                  <span class="grid size-6 shrink-0 place-items-center rounded-full bg-moss text-[10px] font-black text-white">{i + 1}</span>
+                  <span>{step}</span>
+                </li>
+              ))}
+            </ol>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-shell bg-white/[0.55]">
+    <div class="container-site">
+      <SectionHeading
+        eyebrow="TRAVEL STYLES"
+        title="旅のスタイル別、三人のルート。"
+        description="出かける人とペースに合わせて。誰と、どんなふうに過ごしたいかで選んでください。"
+      />
+      <div class="mt-12 grid gap-5 lg:grid-cols-3">
+        {styles.map((st) => (
+          <article class="overflow-hidden rounded-[1.75rem] border border-black/10 bg-white p-7">
+            <span class="text-4xl" aria-hidden="true">{st.icon}</span>
+            <h3 class="mt-5 font-serif text-2xl font-bold">{st.title}</h3>
+            <p class="mt-4 text-sm leading-7 text-ink/60">{st.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-shell">
+    <div class="container-site grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+      <div>
+        <p class="eyebrow">SCIENCE & RESPONSIBILITY</p>
+        <h2 class="display-title mt-5 text-4xl sm:text-5xl">知ることで、<br />まちに寄り添う。</h2>
+        <p class="mt-7 text-base leading-8 text-ink/[0.65]">
+          本サイトは個人で制作する非営利の非公式ガイドです。福岡市・施設運営者・各店舗とは関係ありません。正確な案内を心がけますが、最新・公式の情報は主催者や自治体の発表を優先してください。
+        </p>
+        <p class="mt-4 text-base leading-8 text-ink/[0.65]">
+          都市の広場は、単なる「空き地」ではありません。ヒートアイランドを和らげ、コミュニティの場となり、災害時には人々の居場所になる。そうした役割を知ることも、ふれあい広場を訪れる楽しみのひとつです。
+        </p>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2">
+        {responsibilities.map(([title, body]) => (
+          <div class="rounded-2xl border border-black/10 bg-white p-6">
+            <h3 class="font-bold text-ink">{title}</h3>
+            <p class="mt-2 text-sm leading-7 text-ink/60">{body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="pb-24">
+    <div class="container-site flex flex-col gap-6 rounded-[2rem] border border-black/10 bg-white p-7 sm:flex-row sm:items-center sm:justify-between sm:p-10">
+      <div>
+        <p class="text-xs font-black tracking-[0.16em] text-moss">NEXT</p>
+        <h2 class="mt-3 font-serif text-3xl font-bold">ルートを決めたら、行き方を。</h2>
+        <p class="mt-3 text-sm leading-7 text-ink/60">空港・博多駅・各駅からのアクセスと、現地の過ごし方をまとめました。</p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <a href="/access" class="rounded-full bg-ink px-5 py-3 text-sm font-bold text-white">詳しいアクセス</a>
+        <a href="/nearby" class="rounded-full border border-black/15 px-5 py-3 text-sm font-bold">周辺スポット</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
+import { site } from '@/data/site';
 ---
 <BaseLayout title="写真・情報出典" description="天神ふれあい広場ガイドで参照した公的情報と写真素材の出典を掲載します。" noindex={true}>
   <PageHero
@@ -20,6 +21,20 @@ import PageHero from '@/components/PageHero.astro';
           <li>天神中央公園、アクロス福岡、水鏡天満宮、旧福岡県公会堂貴賓館の公開情報</li>
           <li>元祖博多めんたい重、天神ホルモン、一藤の各公式店舗情報</li>
         </ul>
+      </article>
+
+      <article class="card-surface p-7 sm:p-9">
+        <h2 class="font-serif text-2xl font-bold">評価・口コミの出典</h2>
+        <p class="mt-3 text-sm font-bold text-ink/75">評価 ・ 同期日 {site.rating.syncedAt}</p>
+        <p class="mt-4 text-sm leading-7 text-ink/[0.65]">
+          本サイトに掲載している評価（{site.rating.value.toFixed(1)}）と口コミ数（{site.rating.count.toLocaleString('ja-JP')} 件）は、Google マップのユーザー評価を同期したものです。最新の評価・口コミは以下の Google マップからご確認いただけます。
+        </p>
+        <a href={site.rating.sourceUrl} target="_blank" rel="noopener noreferrer" class="mt-5 inline-flex items-center gap-2 rounded-full bg-ink px-5 py-3 text-sm font-bold text-white transition hover:-translate-y-0.5">
+          Google マップで全ての口コミを見る <span aria-hidden="true">↗</span>
+        </a>
+        <p class="mt-5 border-t border-black/10 pt-4 text-xs leading-6 text-ink/45">
+          本評価は Google マップのユーザー評価を同期したものです（同期日：{site.rating.syncedAt}）。著作権は原作者および Google マップに帰属します。
+        </p>
       </article>
 
       <article class="card-surface p-7 sm:p-9">

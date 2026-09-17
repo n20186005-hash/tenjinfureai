@@ -11,6 +11,8 @@
 - Wrangler 4.115.0
 - Cloudflare Workers Static Assets
 - Google Analytics 4: `G-HXM22WWPKP`
+- PWA 対応：manifest（`public/manifest.webmanifest`）+ サービスワーカー（`public/sw.js`、ネットワーク優先・オフライン対応）
+- 評価・口コミ：Google マップのユーザー評価を同期表示（JSON-LD には含めず、由来を明記）。同期日 2026年9月。
 - データベース、ログイン、CMSなし
 
 ## ページ

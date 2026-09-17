@@ -1,0 +1,61 @@
+---
+import { site } from '@/data/site';
+
+interface Props {
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
+
+const { rating } = site;
+const fullStars = Math.round(rating.value);
+const stars = Array.from({ length: 5 }, (_, i) => i < fullStars);
+const countLabel = rating.count.toLocaleString('ja-JP');
+---
+
+<!--
+  注意：本ブロックは Google マップのユーザー評価を「表示」するものであり、
+  JSON-LD（構造化データ）には含めません。引用元を明記し、Google のポリシーに沿います。
+-->
+<section class:list={['section-shell', compact && '!py-10']}>
+  <div class="container-site">
+    <div class="overflow-hidden rounded-[2rem] border border-black/10 bg-white/[0.72] p-7 shadow-soft sm:p-10">
+      <div class="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+        <div class="flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-10">
+          <div class="flex items-end gap-3">
+            <span class="font-serif text-6xl font-bold leading-none text-ink sm:text-7xl">{rating.value.toFixed(1)}</span>
+            <span class="mb-1 text-sm font-bold text-moss">/ 5</span>
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5" role="img" aria-label={`Google マップの評価 ${rating.value} / 5（${countLabel}件の口コミ）`}>
+              {stars.map((filled) => (
+                <svg viewBox="0 0 24 24" class:list={['size-6', filled ? 'text-sun' : 'text-black/15']} fill="currentColor" aria-hidden="true">
+                  <path d="M12 2.5l2.9 5.9 6.5.95-4.7 4.6 1.1 6.45L12 17.9 6.2 20.95l1.1-6.45-4.7-4.6 6.5-.95z"/>
+                </svg>
+              ))}
+            </div>
+            <p class="mt-2 text-sm font-bold text-ink/70">
+              {countLabel} 件の口コミ
+              <span class="ml-2 rounded-full bg-ink/[0.06] px-2.5 py-0.5 text-xs font-bold text-ink/55">{rating.category}</span>
+            </p>
+          </div>
+        </div>
+        <a
+          href={rating.sourceUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-black text-white transition hover:-translate-y-0.5"
+        >
+          Google マップで全ての口コミを見る <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+
+      <p class="mt-7 border-t border-black/10 pt-5 text-xs leading-6 text-ink/55">
+        評価と口コミ数は、Google マップ（Google Maps）のユーザー評価と同期しています ・ {rating.syncedAt} ・
+        <a href={rating.sourceUrl} target="_blank" rel="noopener noreferrer" class="font-bold text-moss underline-offset-2 hover:underline">Google マップで全ての口コミを見る ↗</a>
+      </p>
+      <p class="mt-2 text-xs leading-6 text-ink/45">
+        本評価は Google マップのユーザー評価を同期したものです（同期日：{rating.syncedAt}）。著作権は原作者および Google マップに帰属します。
+      </p>
+    </div>
+  </div>
+</section>

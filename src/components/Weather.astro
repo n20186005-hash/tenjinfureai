@@ -1,0 +1,168 @@
+---
+import SectionHeading from '@/components/SectionHeading.astro';
+import { fetchWeather, buildAdvice, renderBase, renderForecast, renderAdvice } from '@/lib/weather';
+
+// ビルド時（サーバー側）に取得を試み、静的 HTML へ初期値を埋め込む。
+// 失敗時はクライアント側でライブ取得し、そのまま上書きする。
+const initial = await fetchWeather();
+const baseHtml = initial ? renderBase(initial) : '';
+const fcHtml = initial ? renderForecast(initial) : '';
+const adviceHtml = initial ? renderAdvice(buildAdvice(initial)) : '';
+---
+
+<section class="section-shell">
+  <div class="container-site">
+    <SectionHeading
+      eyebrow="LIVE WEATHER · TENJIN"
+      title="天神の天気と、今日の過ごし方。"
+      description="広場は屋外。現在の天気から「何を持っていくか・どう過ごすか」を、そのまま行動にできる形でお伝えします。"
+      align="center"
+    />
+
+    <div id="weather" class="mt-12 card-surface p-6 sm:p-8">
+      <div class="wx-head">
+        <div class="wx-head-main">
+          <p class="text-xs font-black tracking-[0.16em] text-moss">ふれあい広場（福岡市役所西側）</p>
+          <p class="mt-1 text-sm text-ink/55">天気は目安です。最新の情報は気象庁などの公式発表をご確認ください。</p>
+        </div>
+        <span class="wx-source">気象：Open-Meteo</span>
+      </div>
+
+      <div class="wx-grid">
+        <div class="wx-now-wrap" set:html={baseHtml}></div>
+        <div class="wx-fc-wrap" set:html={fcHtml}></div>
+      </div>
+
+      <div class="wx-advice-wrap mt-5" set:html={adviceHtml}></div>
+
+      {!initial && (
+        <p class="wx-loading">天気を読み込み中…（自動的に更新されます）</p>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  #weather { container-type: inline-size; }
+
+  .wx-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+  .wx-source {
+    flex-shrink: 0;
+    border: 1px solid var(--color-line);
+    border-radius: 999px;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--color-ink);
+    background: rgba(255, 255, 255, 0.6);
+  }
+
+  .wx-grid {
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: 1fr;
+  }
+  @container (min-width: 640px) {
+    .wx-grid { grid-template-columns: 1fr 1.7fr; }
+  }
+
+  /* 現在の天気カード */
+  .wx-now { padding: 1.25rem; border-radius: 1.5rem; background: linear-gradient(160deg, rgba(66,101,75,0.10), rgba(229,167,58,0.10)); }
+  .wx-temp { font-family: var(--font-serif); font-weight: 700; font-size: clamp(3rem, 9vw, 4.25rem); line-height: 1; }
+  .wx-temp span { font-size: 0.4em; margin-left: 0.15em; }
+  .wx-cond { margin-top: 0.5rem; font-weight: 700; font-size: 1.05rem; }
+  .wx-meta { margin-top: 0.35rem; color: rgba(23,33,27,0.6); font-size: 0.9rem; }
+  .wx-chips { margin-top: 0.75rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .wx-chip { font-size: 0.72rem; font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 999px; }
+  .wx-uv { background: rgba(229,167,58,0.20); color: #8a5a12; }
+
+  /* 7日予報 */
+  .wx-fc { display: grid; grid-template-columns: repeat(7, 1fr); gap: 0.4rem; }
+  .wx-fc-day {
+    text-align: center;
+    padding: 0.6rem 0.25rem;
+    border-radius: 1rem;
+    background: rgba(255,255,255,0.55);
+    border: 1px solid rgba(23,33,27,0.06);
+  }
+  .wx-fc-label { font-size: 0.7rem; font-weight: 700; color: rgba(23,33,27,0.55); }
+  .wx-fc-emoji { font-size: 1.5rem; line-height: 1.4; }
+  .wx-fc-hi { font-size: 0.95rem; font-weight: 800; }
+  .wx-fc-lo { font-size: 0.78rem; color: rgba(23,33,27,0.5); }
+  .wx-fc-prob { font-size: 0.68rem; font-weight: 700; color: var(--color-festival); margin-top: 0.1rem; min-height: 0.9rem; }
+
+  /* アドバイス */
+  .wx-risk {
+    background: #fdecec;
+    border: 1px solid #f3b6b0;
+    color: #9b1c1c;
+    border-radius: 1rem;
+    padding: 0.85rem 1.1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.7;
+  }
+  .wx-risk p { margin: 0; }
+  .wx-blocks {
+    margin-top: 0.85rem;
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: 1fr;
+  }
+  @container (min-width: 720px) {
+    .wx-blocks { grid-template-columns: repeat(3, 1fr); }
+  }
+  .wx-block {
+    background: rgba(23,33,27,0.04);
+    border-radius: 1rem;
+    padding: 0.9rem 1rem;
+  }
+  .wx-block h4 {
+    margin: 0 0 0.5rem;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: var(--color-moss);
+  }
+  .wx-block ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+  .wx-block li { position: relative; padding-left: 1.1rem; font-size: 0.85rem; line-height: 1.55; color: rgba(23,33,27,0.78); }
+  .wx-block li::before { content: "✓"; position: absolute; left: 0; color: var(--color-moss); font-weight: 800; }
+
+  .wx-loading { margin-top: 1rem; font-size: 0.85rem; color: rgba(23,33,27,0.5); }
+</style>
+
+<script>
+  import { fetchWeather, buildAdvice, renderBase, renderForecast, renderAdvice } from '../lib/weather';
+
+  const root = document.getElementById('weather');
+  if (root) {
+    const baseWrap = root.querySelector<HTMLElement>('.wx-now-wrap');
+    const fcWrap = root.querySelector<HTMLElement>('.wx-fc-wrap');
+    const advWrap = root.querySelector<HTMLElement>('.wx-advice-wrap');
+
+    async function refresh() {
+      try {
+        const wx = await fetchWeather();
+        if (!wx) return;
+        if (baseWrap) baseWrap.innerHTML = renderBase(wx);
+        if (fcWrap) fcWrap.innerHTML = renderForecast(wx);
+        if (advWrap) advWrap.innerHTML = renderAdvice(buildAdvice(wx));
+        const loading = root.querySelector('.wx-loading');
+        if (loading) loading.remove();
+      } catch {
+        /* サーバー側の初期値を維持 */
+      }
+    }
+
+    refresh();
+    // 30分ごとにライブ更新
+    setInterval(refresh, 30 * 60 * 1000);
+  }
+</script>

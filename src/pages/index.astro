@@ -1,14 +1,19 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
+import Reviews from '@/components/Reviews.astro';
+import FaqSection from '@/components/FaqSection.astro';
+import Weather from '@/components/Weather.astro';
+import EventsUpcoming from '@/components/EventsUpcoming.astro';
 import { quickFacts, site } from '@/data/site';
-import { eventSchedule } from '@/data/events';
+import { eventSchedule, getEventNowModule } from '@/data/events';
 import { foodSpots } from '@/data/food';
 import { nearbySpots } from '@/data/nearby';
 
 const featuredEvent = eventSchedule.find((event) => event.featured);
+const { heading: homeEventHeading, events: homeEvents } = getEventNowModule(new Date());
 ---
-<BaseLayout>
+<BaseLayout pageTitleOverride="福岡市役所西側ふれあい広場（天神ふれあい広場）| イベント・アクセス・施設案内">
   <section class="relative min-h-[760px] overflow-hidden pt-18 lg:min-h-[820px]">
     <img src="/images/plaza/festival-dance.webp" alt="福岡市役所西側ふれあい広場で行われる祭りのステージ" class="absolute inset-0 size-full object-cover" width="1920" height="1080" fetchpriority="high" />
     <div class="absolute inset-0 bg-linear-to-r from-ink/90 via-ink/[0.54] to-ink/5"></div>
@@ -79,6 +84,10 @@ const featuredEvent = eventSchedule.find((event) => event.featured);
     </div>
   </section>
 
+  <Weather />
+
+  <Reviews />
+
   <section class="section-shell overflow-hidden bg-ink text-paper">
     <div class="container-site grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
       <div>
@@ -111,6 +120,12 @@ const featuredEvent = eventSchedule.find((event) => event.featured);
       </div>
     </div>
   </section>
+
+  <EventsUpcoming
+    events={homeEvents}
+    heading={homeEventHeading}
+    note="掲載は2026年度の年間予定（参考）。開催日時は主催者の最新案内をご確認ください。"
+  />
 
   <section class="section-shell">
     <div class="container-site">
@@ -183,6 +198,8 @@ const featuredEvent = eventSchedule.find((event) => event.featured);
       </div>
     </div>
   </section>
+
+  <FaqSection />
 
   <section class="pb-24">
     <div class="container-site flex flex-col gap-6 rounded-[2rem] border border-black/10 bg-white p-7 sm:flex-row sm:items-center sm:justify-between sm:p-10">

@@ -9,6 +9,15 @@ export const site = {
     longitude: 130.4011491,
   },
   mapUrl: 'https://www.google.com/maps/dir/?api=1&destination=33.5900083%2C130.4011491',
+  googleMapsUrl: 'https://maps.app.goo.gl/V5Cvs5Ht76AtTr7x8',
+  rating: {
+    value: 4.0,
+    count: 1667,
+    category: '公園',
+    source: 'Google マップ',
+    sourceUrl: 'https://maps.app.goo.gl/V5Cvs5Ht76AtTr7x8',
+    syncedAt: '2026年9月',
+  },
   ga4: 'G-HXM22WWPKP',
 };
 
@@ -17,6 +26,7 @@ export const navigation = [
   { href: '/about', label: '広場を知る' },
   { href: '/events', label: 'イベント' },
   { href: '/access', label: 'アクセス' },
+  { href: '/guide', label: '楽しみ方' },
   { href: '/food', label: '周辺グルメ' },
   { href: '/nearby', label: '周辺スポット' },
 ];

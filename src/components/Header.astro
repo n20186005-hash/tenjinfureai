@@ -35,6 +35,9 @@ const isActive = (href: string) => href === '/' ? currentPath === '/' : currentP
     </nav>
 
     <div class="flex items-center gap-2">
+      <a href={site.mapUrl} target="_blank" rel="noreferrer" aria-label="地図・経路を開く" class="grid size-11 place-items-center rounded-full border border-black/10 bg-white">
+        <svg viewBox="0 0 24 24" class="size-5" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+      </a>
       <a href="/card" class="hidden rounded-full bg-festival px-4 py-2.5 text-sm font-bold text-white shadow-lg shadow-festival/15 transition hover:-translate-y-0.5 sm:inline-flex">
         記念カードをつくる
       </a>

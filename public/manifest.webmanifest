@@ -1,0 +1,27 @@
+{
+  "name": "天神ふれあい広場ガイド",
+  "short_name": "TENJIN FUREAI",
+  "description": "福岡市役所西側ふれあい広場を、イベント・アクセス・周辺グルメ・まち歩きと一緒に楽しむ非公式ガイド。",
+  "lang": "ja",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f7f5ed",
+  "theme_color": "#17211b",
+  "categories": ["travel", "navigation"],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}

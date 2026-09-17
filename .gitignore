@@ -1,7 +1,25 @@
+# ── 依赖与构建缓存（不需要上传 / 提交） ──
 node_modules/
-dist/
+.pnpm-store/
 .astro/
 .wrangler/
-.dev.vars
+.cache/
+dist/
+dev-dist/
+
+# ── 本地环境变量与密钥（切勿上传） ──
 .env
+.env.*
+.dev.vars
+
+# ── 日志与临时文件 ──
+*.log
+*.tsbuildinfo
 .DS_Store
+Thumbs.db
+
+# ── 说明 ──
+# 本项目为静态站点，手动部署到 Cloudflare Workers 时：
+#   - 上传 dist/ 目录的内容（构建产物）即可，node_modules / .astro / .wrangler 等无需上传。
+#   - 部署命令（在本地）示例：先 `pnpm build` 生成 dist/，再用 wrangler 上传 dist/。
+#   - .env / .dev.vars 含密钥，已忽略，请勿加入版本库或上传。

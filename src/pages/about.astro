@@ -2,6 +2,8 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import PageHero from '@/components/PageHero.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
+import Reviews from '@/components/Reviews.astro';
+import FaqSection from '@/components/FaqSection.astro';
 ---
 <BaseLayout title="広場を知る" description="福岡市役所西側ふれあい広場の特徴、設備、過ごし方、利用時のポイントを紹介します。" image="/images/plaza/plaza-aerial.webp">
   <PageHero
@@ -21,6 +23,8 @@ import SectionHeading from '@/components/SectionHeading.astro';
       <p>通常の利用時間の目安は8:00から21:00。イベントがない時間帯は、天神を歩く人にとって気軽に立ち寄れる都市の余白です。一方、催しの日には会場レイアウトや入場方法が変わるため、主催者の案内を確認して訪れるのがおすすめです。</p>
     </div>
   </section>
+
+  <Reviews />
 
   <section class="section-shell bg-ink text-paper">
     <div class="container-site">
@@ -78,6 +82,49 @@ import SectionHeading from '@/components/SectionHeading.astro';
     </div>
   </section>
 
+  <section class="section-shell">
+    <div class="container-site">
+      <SectionHeading
+        eyebrow="BACKGROUND & STORIES"
+        title="広場の背景と、街のストーリー。"
+        description="ただの「空き地」ではありません。地名の由来、祭り、近代の商業、城下町の記憶。広場は、天神という街の物語の上に立っています。"
+        align="center"
+      />
+      <ol class="mt-12 max-w-3xl space-y-5">
+        <li class="card-surface p-7">
+          <p class="text-xs font-black tracking-[0.16em] text-moss">地名の由来</p>
+          <h3 class="mt-3 font-serif text-2xl font-bold">「天神」は、神様の名前だった</h3>
+          <p class="mt-3 text-sm leading-8 text-ink/65">天神という地名は、菅原道真公を祀る「天神信仰」に由来します。広場から徒歩5分の水鏡天満宮は、まさにその由来をたどる一地点。学問の神様として、受験シーズンには多くの人が足を運びます。</p>
+        </li>
+        <li class="card-surface p-7">
+          <p class="text-xs font-black tracking-[0.16em] text-moss">広場の立ち位置</p>
+          <h3 class="mt-3 font-serif text-2xl font-bold">市庁舎のすぐそば、行政とにぎわいが隣り合う</h3>
+          <p class="mt-3 text-sm leading-8 text-ink/65">福岡市役所の西側にひらかれたこの広場は、まさに「役所の前の広場」という分かりやすい立地にあります。公共の建物と市民のにぎわいが隣り合う、日本の都市では珍しい親しみやすさがあります。</p>
+        </li>
+        <li class="card-surface p-7">
+          <p class="text-xs font-black tracking-[0.16em] text-moss">祭りの記憶</p>
+          <h3 class="mt-3 font-serif text-2xl font-bold">博多どんたく、フィナーレの舞台</h3>
+          <p class="mt-3 text-sm leading-8 text-ink/65">毎年5月の博多どんたく港まつり。広場はそのフィナーレ会場として知られ、でか山や山笠の練り歩きの余韻が残る場所です。一年で最も熱を帯びる日のひとつです。</p>
+        </li>
+        <li class="card-surface p-7">
+          <p class="text-xs font-black tracking-[0.16em] text-moss">天神の近代</p>
+          <h3 class="mt-3 font-serif text-2xl font-bold">戦後から、福岡を代表する商業の中心に</h3>
+          <p class="mt-3 text-sm leading-8 text-ink/65">渡辺通りやソラリア、岩田屋などの老舗と新しいビルが混在する天神。戦後の繁華街として発展し、今も福岡の「街の顔」のひとつとして呼吸しています。</p>
+        </li>
+        <li class="card-surface p-7">
+          <p class="text-xs font-black tracking-[0.16em] text-moss">歴史のつながり</p>
+          <h3 class="mt-3 font-serif text-2xl font-bold">那珂川を挟んで、福岡城跡へ</h3>
+          <p class="mt-3 text-sm leading-8 text-ink/65">広場からまち歩きを延ばせば、大濠公園や舞鶴公園（福岡城跡）までも射程内。黒田藩の城下町として栄えた福岡の歴史が、一本の通りの先に続いています。</p>
+        </li>
+        <li class="card-surface p-7">
+          <p class="text-xs font-black tracking-[0.16em] text-moss">語り部の街</p>
+          <h3 class="mt-3 font-serif text-2xl font-bold">口にのこる、博多のことば</h3>
+          <p class="mt-3 text-sm leading-8 text-ink/65">「〜ばい」「〜たい」の博多弁、山笠の「追い山」、どんたくの掛け声。この街には、世代をこえて口で伝えられてきた文化があります。広場のにぎわいも、その系譜の一部です。</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
   <section class="pb-24">
     <div class="container-site rounded-[2rem] bg-sun/[0.18] p-8 sm:p-12">
       <div class="grid gap-10 lg:grid-cols-[0.7fr_1.3fr]">
@@ -101,4 +148,6 @@ import SectionHeading from '@/components/SectionHeading.astro';
       </div>
     </div>
   </section>
+
+  <FaqSection />
 </BaseLayout>

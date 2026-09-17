@@ -1,0 +1,73 @@
+---
+import SectionHeading from '@/components/SectionHeading.astro';
+import { site } from '@/data/site';
+
+const faqs = [
+  {
+    q: '福岡市役所西側ふれあい広場はどこにありますか？',
+    a: `福岡県福岡市中央区天神1丁目8-1、福岡市役所の西側に位置しています。地下鉄・西鉄の主要駅から徒歩圏内です。`,
+  },
+  {
+    q: '入場料はかかりますか？',
+    a: '公開の都市広場であり、年中無料で利用できます。イベント開催時は一部エリアが有料・入場制限になる場合があります。',
+  },
+  {
+    q: '利用できる時間はいつですか？',
+    a: `通常の利用時間の目安は ${site.hours} です。イベントの日は会場構成や入場方法が変わるため、主催者の案内をご確認ください。`,
+  },
+  {
+    q: '最寄り駅からのアクセスは？',
+    a: '地下鉄天神駅（13A出口）から徒歩約5分、地下鉄天神南駅から徒歩約3分、西鉄福岡（天神）駅から徒歩約4分です。',
+  },
+  {
+    q: 'どんなイベントがありますか？',
+    a: '観光・物産PR、企業イベント、音楽ライブ、地域交流など、年間を通してさまざまな催しが開かれます。博多どんたくのフィナーレ会場としても知られています。',
+  },
+  {
+    q: '駐車場はありますか？',
+    a: '広場専用の駐車場はありません。周辺の公共・商業施設の駐車場をご利用ください。イベント時は混雑するため公共交通の利用がおすすめです。',
+  },
+  {
+    q: '評価・口コミはどこから取得していますか？',
+    a: `本サイトの評価と口コミ数は、Google マップのユーザー評価を同期したものです（同期日：${site.rating.syncedAt}）。著作権は原作者および Google マップに帰属します。`,
+  },
+  {
+    q: 'ペットを連れていけますか？',
+    a: '屋外広場のため、リードを着用の上であれば可能な場合が多いです。ただしイベント開催時は主催者や施設の案内に従ってください。',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+};
+---
+
+<section class="section-shell">
+  <div class="container-narrow">
+    <SectionHeading
+      eyebrow="FAQ"
+      title="よくある質問。"
+      description="訪問前に知っておくと役立つ、広場の基本をまとめました。"
+      align="center"
+    />
+    <div class="mt-12 space-y-4">
+      {faqs.map(({ q, a }) => (
+        <details class="group rounded-[1.5rem] border border-black/10 bg-white/[0.72] p-6 shadow-soft [&_summary::-webkit-details-marker]:hidden">
+          <summary class="flex cursor-pointer items-center justify-between gap-4 text-base font-bold">
+            <span>{q}</span>
+            <span class="grid size-8 shrink-0 place-items-center rounded-full bg-ink/[0.06] text-ink/60 transition group-open:rotate-45" aria-hidden="true">+</span>
+          </summary>
+          <p class="mt-4 text-sm leading-8 text-ink/[0.65]">{a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
