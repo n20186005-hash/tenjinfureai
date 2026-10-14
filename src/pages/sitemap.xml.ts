@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 
-const pages = ['', '/about', '/events', '/access', '/food', '/nearby', '/card', '/privacy'];
+const pages = ['', '/about', '/events', '/access', '/food', '/nearby', '/card', '/privacy', '/events/chikugogawa-megumi-2026', '/events/kankyo-festival-2026'];
 
 export const GET: APIRoute = ({ site }) => {
   const base = site ?? new URL('https://tenjinfureai.com');

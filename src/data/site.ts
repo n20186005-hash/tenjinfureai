@@ -12,11 +12,11 @@ export const site = {
   googleMapsUrl: 'https://maps.app.goo.gl/V5Cvs5Ht76AtTr7x8',
   rating: {
     value: 4.0,
-    count: 1667,
+    count: 1675,
     category: '公園',
     source: 'Google マップ',
     sourceUrl: 'https://maps.app.goo.gl/V5Cvs5Ht76AtTr7x8',
-    syncedAt: '2026年9月',
+    syncedAt: '2026年10月',
   },
   ga4: 'G-HXM22WWPKP',
 };
@@ -33,7 +33,7 @@ export const navigation = [
 
 export const quickFacts = [
   { label: '場所', value: '福岡・天神の中心' },
-  { label: '利用時間の目安', value: '8:00–21:00' },
+  { label: '施設利用時間（目安）', value: '8:00–21:00' },
   { label: '最寄り', value: '地下鉄・西鉄から徒歩約4分' },
   { label: '特徴', value: '芝生とステージの都市広場' },
 ];

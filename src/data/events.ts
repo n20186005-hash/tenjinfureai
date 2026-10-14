@@ -1,4 +1,5 @@
 export type EventItem = {
+  slug?: string;
   date: string;
   start: string; // ISO (YYYY-MM-DD) 予定開始日
   end: string; // ISO (YYYY-MM-DD) 予定終了日
@@ -6,6 +7,11 @@ export type EventItem = {
   category: '祭り' | '地域' | '文化' | 'スポーツ' | '季節';
   note?: string;
   featured?: boolean;
+  organizer?: string;
+  officialUrl?: string;
+  intro?: string;
+  access?: string;
+  rainNote?: string;
 };
 
 // 2026年度の年間予定（参考）。実際の開催日は主催者発表をご確認ください。
@@ -16,8 +22,34 @@ export const eventSchedule: EventItem[] = [
   { date: '5月14日–6月14日', start: '2026-05-14', end: '2026-06-14', title: '福岡ボルドーワイン祭り', category: '季節' },
   { date: '7月13日', start: '2026-07-13', end: '2026-07-13', title: '博多祇園山笠 集団山笠見せ', category: '祭り' },
   { date: '7月17日–8月23日', start: '2026-07-17', end: '2026-08-23', title: '天神夏まつり2026', category: '祭り', note: '開催時間の目安 17:30–22:00。', featured: true },
-  { date: '10月17日–18日', start: '2026-10-17', end: '2026-10-18', title: '筑後川のめぐみフェスティバル', category: '地域' },
-  { date: '10月24日–25日', start: '2026-10-24', end: '2026-10-25', title: '環境フェスティバルふくおか', category: '地域' },
+  {
+    slug: 'chikugogawa-megumi-2026',
+    date: '10月17日–18日',
+    start: '2026-10-17',
+    end: '2026-10-18',
+    title: '筑後川のめぐみフェスティバル2026',
+    category: '地域',
+    note: '10月17日 10:30–17:00 / 10月18日 10:00–16:00。入場無料。',
+    organizer: '福岡市',
+    officialUrl: 'https://fureaihiroba.jp/',
+    intro: '筑後川流域の特産品や地域の魅力を紹介する物産展・展示・ステージイベント。福岡市役所西側ふれあい広場で開催され、家族連れでも楽しめる内容です。',
+    access: '地下鉄天神駅・天神南駅、西鉄福岡（天神）駅から徒歩約4分。大規模イベント日は公共交通のご利用がおすすめです。',
+    rainNote: '荒天の場合は内容・時間が変更される場合があります。来場前に主催者の最新案内をご確認ください。',
+  },
+  {
+    slug: 'kankyo-festival-2026',
+    date: '10月24日–25日',
+    start: '2026-10-24',
+    end: '2026-10-25',
+    title: '環境フェスティバルふくおか2026',
+    category: '地域',
+    note: '10:00–16:00。入場無料。',
+    organizer: '福岡市',
+    officialUrl: 'https://fureaihiroba.jp/',
+    intro: '環境保全やごみ減量、自然体験をテーマに、親子で楽しめる体験企画やワークショップ、展示が集まるイベント。福岡市役所西側ふれあい広場で開催されます。',
+    access: '地下鉄天神駅・天神南駅、西鉄福岡（天神）駅から徒歩約4分。周辺は混雑が見込まれるため公共交通のご利用をおすすめします。',
+    rainNote: '屋外イベントのため、天候により一部プログラムが中止・変更となる場合があります。',
+  },
   { date: '10月31日', start: '2026-10-31', end: '2026-10-31', title: '防災フェア', category: '地域' },
   { date: '11月6日–8日', start: '2026-11-06', end: '2026-11-08', title: '福岡マラソン関連イベント', category: 'スポーツ' },
   { date: '11月13日–15日', start: '2026-11-13', end: '2026-11-15', title: 'ふくこいアジア祭り', category: '文化' },
@@ -25,6 +57,8 @@ export const eventSchedule: EventItem[] = [
   { date: '12月6日', start: '2026-12-06', end: '2026-12-06', title: '障がい者週間記念イベント', category: '地域' },
   { date: '12月20日', start: '2026-12-20', end: '2026-12-20', title: 'クリスマス献血', category: '季節' },
 ];
+
+export const LAST_CONFIRMED = '2026年10月14日';
 
 const toDate = (d: string) => new Date(`${d}T00:00:00`);
 
@@ -38,7 +72,7 @@ export function getThisWeekendEvents(now: Date = new Date()): EventItem[] {
   return eventSchedule.filter((e) => toDate(e.end) >= sat && toDate(e.start) <= sun);
 }
 
-// 直近の開催予定（本日以降、limimt 件）
+// 直近の開催予定（本日以降、limit 件）
 export function getUpcomingEvents(limit = 3, now: Date = new Date()): EventItem[] {
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   return eventSchedule
@@ -47,11 +81,28 @@ export function getUpcomingEvents(limit = 3, now: Date = new Date()): EventItem[
     .slice(0, limit);
 }
 
+// 指定年月に開催されるイベント
+export function getEventsByYearMonth(year: number, month: number, now: Date = new Date()): EventItem[] {
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  return eventSchedule
+    .filter((e) => {
+      const start = toDate(e.start);
+      const end = toDate(e.end);
+      const inMonth = start.getFullYear() === year && start.getMonth() === month - 1;
+      return inMonth && end >= today;
+    })
+    .sort((a, b) => toDate(a.start).getTime() - toDate(b.start).getTime());
+}
+
 // 検索意図（「今日・今週末のイベント」）に答えるモジュール用データ
 export function getEventNowModule(now: Date = new Date()): { heading: string; events: EventItem[] } {
   const weekend = getThisWeekendEvents(now);
   if (weekend.length) return { heading: '今週末のイベント', events: weekend };
   return { heading: '今後の開催予定', events: getUpcomingEvents(3, now) };
+}
+
+export function getEventBySlug(slug: string): EventItem | undefined {
+  return eventSchedule.find((e) => e.slug === slug);
 }
 
 export const eventTips = [
